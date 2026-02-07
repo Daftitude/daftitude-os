@@ -1,26 +1,545 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* Sensible defaults */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* =========================
+   DaFTitude Base Theme
+   ========================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg0: #070a10;
+  --bg1: #0a1020;
+
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel2: rgba(255, 255, 255, 0.09);
+  --border: rgba(255, 255, 255, 0.10);
+
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.66);
+  --muted2: rgba(255, 255, 255, 0.50);
+
+  --glow: rgba(80, 200, 255, 0.35);
+  --amber: rgba(255, 190, 90, 0.22);
+
+  --radius: 18px;
+
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 450;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color: var(--text);
+  background:
+    radial-gradient(1100px 600px at 30% 18%, rgba(80, 200, 255, 0.13), transparent 60%),
+    radial-gradient(900px 550px at 75% 35%, rgba(255, 190, 90, 0.10), transparent 55%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
 }
+
+/* =========================
+   Typography
+   ========================= */
+h1, h2, h3 {
+  font-family: var(--font-sans);
+  font-weight: 800;
+}
+
+p { margin: 0; }
+
+/* =========================
+   Base Links / Pills
+   ========================= */
+.heroLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: var(--text);
+  text-decoration: none;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.heroLink:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.16);
+}
+
+.heroLinkPrimary {
+  border-color: rgba(80, 200, 255, 0.28);
+  background: rgba(80, 200, 255, 0.10);
+}
+
+.pill {
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.25);
+  color: rgba(255,255,255,0.86);
+  white-space: nowrap;
+}
+
+/* =========================
+   Page Layout
+   ========================= */
+.page {
+  min-height: 100vh;
+}
+
+/* =========================
+   Cards (your “game menu” feel)
+   ========================= */
+.menuGrid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.menuCard {
+  grid-column: span 4; /* 3 across on desktop */
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+  padding: 18px 18px 16px;
+  overflow: hidden;
+  transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+}
+
+.menuCard::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background:
+    radial-gradient(600px 240px at 30% 20%, rgba(80,200,255,0.20), transparent 60%),
+    radial-gradient(600px 240px at 80% 35%, rgba(255,190,90,0.16), transparent 58%);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.menuCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255,255,255,0.18);
+  background: linear-gradient(180deg, var(--panel2), rgba(255,255,255,0.03));
+}
+
+.menuCard:hover::before { opacity: 1; }
+
+.menuCardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.menuCardTitle {
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  font-weight: 750;
+}
+
+.menuCardSub {
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.55;
+  position: relative;
+  z-index: 1;
+}
+
+.menuCardHint {
+  margin-top: 14px;
+  color: rgba(255,255,255,0.78);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+/* =========================
+   Card Actions (Launch / Read)
+   ========================= */
+.cardActions {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.cardBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+  min-width: 140px;
+}
+
+.cardBtn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,0.20);
+}
+
+.cardBtnPrimary {
+  background: linear-gradient(90deg, rgba(80,200,255,0.18), rgba(255,190,90,0.12));
+  border-color: rgba(80,200,255,0.22);
+}
+
+.cardBtnGhost {
+  background: rgba(0,0,0,0.20);
+}
+
+/* =========================
+   Card Metrics (3 tiles)
+   ========================= */
+.cardMetrics {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.cardMetric {
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.22);
+  padding: 8px 10px 7px;
+  text-align: left;
+}
+
+.cardMetricValue {
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+.cardMetricLabel {
+  margin-top: 2px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.80);
+  letter-spacing: 0.10em;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.cardMetricSub {
+  display: none;
+  margin-top: 3px;
+  font-size: 11px;
+  color: var(--muted2);
+  line-height: 1.25;
+}
+
+@media (max-width: 700px) {
+  .cardMetrics { grid-template-columns: 1fr; }
+  .cardBtn { width: 100%; }
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 960px) {
+  .menuCard { grid-column: span 12; }
+}
+
+/* =========================
+   PageShell (Tech page uses this)
+   ========================= */
+.shell {
+  min-height: 100vh;
+}
+
+.shellInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 18px 56px;
+}
+
+.shellHero {
+  margin-top: 22px;
+}
+
+.shellHeroInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background:
+    radial-gradient(900px 420px at 25% 20%, rgba(80, 200, 255, 0.18), transparent 60%),
+    radial-gradient(900px 420px at 80% 35%, rgba(255, 190, 90, 0.12), transparent 58%),
+    linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  backdrop-filter: blur(12px);
+  padding: 34px 22px 18px;
+  text-align: center;
+}
+
+.shellEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.25);
+  color: rgba(255,255,255,0.85);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.shellHeadline {
+  margin: 16px 0 0;
+  font-size: clamp(38px, 4.4vw, 62px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 850;
+}
+
+.shellSubhead {
+  margin: 14px auto 0;
+  max-width: 720px;
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: clamp(15px, 1.2vw, 17px);
+  font-weight: 480;
+}
+
+.shellCode {
+  margin: 16px auto 0;
+  max-width: 520px;
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.35);
+  color: rgba(255,255,255,0.85);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.shellCtas {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.shellSection {
+  margin-top: 26px;
+}
+
+.shellSectionTitle {
+  margin: 0 0 10px;
+  font-size: 15px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.78);
+}
+
+/* =========================
+   Home Page Scoped
+   ========================= */
+.homeWrap {
+  min-height: 100vh;
+}
+
+.homeInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 34px 18px 56px;
+}
+
+.homeHero {
+  margin-top: 10px;
+  text-align: center;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  backdrop-filter: blur(12px);
+  padding: 28px 22px 18px;
+}
+.homeHero::before {
+  content: "";
+  display: block;
+  height: 0;
+}
+
+.homeHeadline {
+  margin: 12px 0 0;
+  font-size: clamp(34px, 4.2vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 850;
+}
+
+.homeSub {
+  margin-top: 14px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 820px;
+}
+
+.homeHeroLinks {
+  justify-content: center;
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.homeScrollHint {
+  margin-top: 10px;
+  display: inline-block;
+  color: var(--muted2);
+  font-size: 12px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+}
+
+.homeSectionTitle {
+  margin: 28px 0 6px;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  font-weight: 750;
+}
+
+.homeSectionSub {
+  margin: 0 0 14px;
+  color: var(--muted);
+}
+
+/* =========================
+   CTA Band
+   ========================= */
+.ctaBand {
+  margin-top: 22px;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
+.ctaBandInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 18px;
+}
+
+.ctaBandTitle {
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  font-weight: 800;
+}
+
+.ctaBandBody {
+  margin-top: 6px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.ctaBandActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+@media (max-width: 860px) {
+  .ctaBandInner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* =========================
+   Footer
+   ========================= */
+.footer {
+  margin-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.footerInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.footerLeft {
+  color: rgba(255,255,255,0.72);
+  font-size: 13px;
+}
+
+.footerRight {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.footerLink {
+  color: rgba(255,255,255,0.78);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.footerLink:hover {
+  color: rgba(255,255,255,0.95);
+}
+
+
+@media (max-width: 900px) {
+  .menuCard { grid-column: span 12; }
+  .statTile { grid-column: span 4; }
+}
+
+@media (max-width: 700px) {
+  .statTile { grid-column: span 6; }
+}
+
