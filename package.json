@@ -1,4 +1,9 @@
 ﻿{
   "name": "daftitude-os",
-  "private": true
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "start": "pnpm --filter web start"
+  }
 }
