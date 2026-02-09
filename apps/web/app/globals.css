@@ -158,6 +158,155 @@ p {
 
   /* mobile menu later */
 }
+/* Auth pages */
+.authPage {
+  min-height: calc(100vh - 120px);
+  display: grid;
+  place-items: center;
+  padding: 48px 16px;
+}
+
+.authCard {
+  width: min(520px, 100%);
+  border-radius: 18px;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(16px);
+}
+
+.authHeader {
+  margin-bottom: 18px;
+}
+
+.authTitle {
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px 0;
+}
+
+.authSubtitle {
+  margin: 0;
+  opacity: 0.75;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.authForm {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.authLabel {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.authInput {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.92);
+  outline: none;
+}
+
+.authInput:focus {
+  border-color: rgba(120, 220, 255, 0.35);
+  box-shadow: 0 0 0 4px rgba(120, 220, 255, 0.08);
+}
+
+.authRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.authCheck {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.authTerms {
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.authLink {
+  font-size: 13px;
+  opacity: 0.9;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.authLink:hover {
+  opacity: 1;
+  border-bottom-color: rgba(255, 255, 255, 0.35);
+}
+
+.authMuted {
+  opacity: 0.7;
+  font-size: 13px;
+}
+
+.authSubmit {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.authFooter {
+  margin-top: 16px;
+  text-align: center;
+}
+/* Clerk bridge styles (match DaFTitude glass system) */
+.clerkCard {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.clerkHeaderTitle { color: rgba(255,255,255,0.92) !important; }
+.clerkHeaderSubtitle { color: rgba(255,255,255,0.70) !important; }
+
+.clerkInput {
+  background: rgba(0,0,0,0.25) !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  color: rgba(255,255,255,0.92) !important;
+  border-radius: 12px !important;
+}
+
+.clerkPrimaryBtn {
+  width: 100% !important;
+  border-radius: 999px !important;
+}
+
+.clerkLink {
+  color: rgba(255,255,255,0.90) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.18) !important;
+  text-decoration: none !important;
+}
+
+.clerkSocialBtn {
+  border-radius: 999px !important;
+  background: rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+}
+
+
+
 
 /* =========================
    Base Links / Pills
