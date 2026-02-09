@@ -1,6 +1,5 @@
 "use client";
 
-// apps/web/app/page.tsx
 import Link from "next/link";
 
 type CardStatus = "Active" | "In Development" | "Experimental";
@@ -10,16 +9,14 @@ type EcosystemItem = {
   title: string;
   subtitle: string;
   status?: CardStatus;
-  viewHref: string;
-  readHref: string;
+  appHref: string;     // signed-in destination
+  publicHref: string;  // public marketing page
   previewId: string;
 };
 
 function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
-
-  // update hash without hard jump
   window.history.replaceState(null, "", `#${id}`);
   el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
@@ -46,13 +43,12 @@ function EcosystemCard({ item }: { item: EcosystemItem }) {
 
       <div className="menuCardSub">{item.subtitle}</div>
 
-      {/* Buttons should NOT trigger the card scroll */}
       <div className="cardActions" onClick={(e) => e.stopPropagation()}>
-        <Link href={item.viewHref} className="cardBtn cardBtnPrimary">
-          VIEW
+        <Link href={item.appHref} className="cardBtn cardBtnPrimary">
+          OPEN APP
         </Link>
-        <Link href={item.readHref} className="cardBtn cardBtnGhost">
-          READ MORE
+        <Link href={item.publicHref} className="cardBtn cardBtnGhost">
+          DETAILS
         </Link>
       </div>
 
@@ -128,7 +124,6 @@ function PreviewSection({
     <section id={id} className="previewSection">
       <div className="previewShell">
         <div className="previewCols">
-          {/* LEFT */}
           <div className="previewCopy">
             <div className="shellEyebrow">{eyebrow}</div>
             <h3 className="previewTitle">{title}</h3>
@@ -144,7 +139,6 @@ function PreviewSection({
             </div>
           </div>
 
-          {/* RIGHT */}
           <div className="previewStage" aria-label={`${eyebrow} preview`}>
             <div className="previewStageTop">
               <div className="previewStageTitleRow">
@@ -167,7 +161,6 @@ function PreviewSection({
               </div>
             </div>
 
-            {/* Visual mock UI (swap later for screenshots/widgets) */}
             <div className="previewMock" aria-hidden="true">
               <div className="previewMockBar" />
               <div className="previewMockRow">
@@ -192,7 +185,7 @@ function PreviewSection({
             </div>
 
             <div className="previewStageFoot">
-              Replace this stage with screenshots, mini dashboards, embeds, or live widgets later.
+              Replace this stage with live widgets and real screenshots later.
             </div>
           </div>
         </div>
@@ -201,19 +194,15 @@ function PreviewSection({
   );
 }
 
-export default function Home() {
-  /**
-   * Ecosystem order is controlled here.
-   * With .menuCard { grid-column: span 4; } you'll get a 3×2 grid on desktop.
-   */
+export default function DashboardPage() {
   const ecosystem: EcosystemItem[] = [
     {
       key: "tech",
       title: "Tech",
       subtitle: "Engineering, automation, security, and real-world systems.",
       status: "Active",
-      viewHref: "/tech",
-      readHref: "/tech#overview",
+      appHref: "/apps/tech",
+      publicHref: "/tech",
       previewId: "preview-tech",
     },
     {
@@ -221,8 +210,8 @@ export default function Home() {
       title: "Finance",
       subtitle: "Risk-first tools for markets, crypto, and decision support.",
       status: "Experimental",
-      viewHref: "/finance",
-      readHref: "/finance#overview",
+      appHref: "/apps/finance",
+      publicHref: "/finance",
       previewId: "preview-finance",
     },
     {
@@ -230,8 +219,8 @@ export default function Home() {
       title: "Fitness",
       subtitle: "Discipline OS + calisthenics systems built for consistency.",
       status: "Active",
-      viewHref: "/fitness/discipline",
-      readHref: "/fitness#overview",
+      appHref: "/apps/fitness",
+      publicHref: "/fitness",
       previewId: "preview-fitness",
     },
     {
@@ -239,8 +228,8 @@ export default function Home() {
       title: "Family",
       subtitle: "Structure, roles, trust mechanics, and a home dashboard.",
       status: "In Development",
-      viewHref: "/family",
-      readHref: "/family#overview",
+      appHref: "/apps/family",
+      publicHref: "/family",
       previewId: "preview-family",
     },
     {
@@ -248,8 +237,8 @@ export default function Home() {
       title: "Lab / Tools",
       subtitle: "Prototypes, experiments, and utilities that ship fast.",
       status: "Experimental",
-      viewHref: "/lab",
-      readHref: "/lab#overview",
+      appHref: "/apps/lab",
+      publicHref: "/lab",
       previewId: "preview-lab",
     },
     {
@@ -257,8 +246,8 @@ export default function Home() {
       title: "Services",
       subtitle: "Pricing, packages, and practical help you can actually use.",
       status: "Active",
-      viewHref: "/services",
-      readHref: "/services#pricing",
+      appHref: "/apps/services",
+      publicHref: "/services",
       previewId: "preview-services",
     },
   ];
@@ -266,9 +255,8 @@ export default function Home() {
   return (
     <main className="homeWrap">
       <div className="homeInner">
-        {/* HERO */}
         <section className="homeHero">
-          <div className="shellEyebrow">DaFTitude • Ecosystem Hub</div>
+          <div className="shellEyebrow">DaFTitude • Signed In</div>
 
           <h1 className="homeHeadline">
             Most problems aren’t that complicated.
@@ -277,8 +265,7 @@ export default function Home() {
           </h1>
 
           <p className="homeSub">
-            DaFTitude is the umbrella. Each section below is a focused system—built to be used
-            under real constraints by real people.
+            You’re signed in. This hub is your launchpad—jump into any system, or preview first.
           </p>
 
           <div className="homeHeroLinks">
@@ -290,15 +277,15 @@ export default function Home() {
                 scrollToId("ecosystem");
               }}
             >
-              Explore the ecosystem →
+              Explore your apps →
             </a>
 
-            <Link href="/about" className="heroLink">
-              How I Think →
+            <Link href="/account" className="heroLink">
+              Account →
             </Link>
 
-            <Link href="/tech" className="heroLink">
-              Start with Tech →
+            <Link href="/apps/tech" className="heroLink">
+              Open Tech →
             </Link>
           </div>
 
@@ -315,11 +302,10 @@ export default function Home() {
           </a>
         </section>
 
-        {/* ECOSYSTEM GRID */}
         <section id="ecosystem" style={{ scrollMarginTop: 90 }}>
-          <div className="homeSectionTitle">The DaFTitude Ecosystem</div>
+          <div className="homeSectionTitle">Your DaFTitude Apps</div>
           <p className="homeSectionSub">
-            Click a system to preview it here—use VIEW when you’re ready to jump into the app.
+            Click a system to preview it here—use OPEN APP when you’re ready to use it.
           </p>
 
           <div className="menuGrid">
@@ -329,17 +315,16 @@ export default function Home() {
           </div>
         </section>
 
-        {/* PREVIEWS */}
         <PreviewSection
           id="preview-tech"
           icon="🧠"
           eyebrow="Tech"
-          title="Developer-grade systems, not motivational posters."
-          body="Automation, security, engineering foundations, and tools designed to survive real usage. This is the backbone category—everything else plugs into it."
-          primaryHref="/tech"
+          title="Developer-grade systems, built to survive production."
+          body="Your tools and workflows: engineering foundations, automation, security, and applied AI."
+          primaryHref="/apps/tech"
           primaryLabel="Open Tech"
-          secondaryHref="/tech#systems"
-          secondaryLabel="See modules"
+          secondaryHref="/tech"
+          secondaryLabel="Public overview"
         />
 
         <PreviewSection
@@ -347,75 +332,60 @@ export default function Home() {
           icon="📈"
           eyebrow="Finance"
           title="Risk first. Signals second. Hype last."
-          body="Decision tools for markets and crypto: structure, tracking, and guardrails. The goal is clarity under uncertainty, not gambling with extra steps."
-          primaryHref="/finance"
+          body="Dashboards, calculators, and guardrails for markets and crypto decision-making."
+          primaryHref="/apps/finance"
           primaryLabel="Open Finance"
-          secondaryHref="/finance#tools"
-          secondaryLabel="See tools"
+          secondaryHref="/finance"
+          secondaryLabel="Public overview"
         />
 
         <PreviewSection
           id="preview-fitness"
           icon="🦾"
           eyebrow="Fitness"
-          title="Discipline OS + Calisthenics—built like a game plan."
-          body="A repeatable system for showing up daily, plus skill-based calisthenics progressions. No random workouts—just progression, structure, and receipts."
-          primaryHref="/fitness/discipline"
-          primaryLabel="Open Discipline OS"
-          secondaryHref="/fitness/calisthenics"
-          secondaryLabel="Open Calisthenics"
+          title="Discipline OS + Calisthenics—structured, measurable progress."
+          body="Your training systems: consistency frameworks + skill-based progressions."
+          primaryHref="/apps/fitness"
+          primaryLabel="Open Fitness"
+          secondaryHref="/fitness"
+          secondaryLabel="Public overview"
         />
 
         <PreviewSection
           id="preview-family"
           icon="🏠"
           eyebrow="Family"
-          title="A home dashboard that rewards structure and trust."
-          body="Roles, routines, shared planning, and system mechanics that make family operations smoother. Still evolving—built to be adopted, not just admired."
-          primaryHref="/family"
+          title="A home dashboard for planning, roles, and trust."
+          body="Shared planning + routines + structure. Built for adoption, not just aesthetics."
+          primaryHref="/apps/family"
           primaryLabel="Open Family"
-          secondaryHref="/family#roadmap"
-          secondaryLabel="See roadmap"
+          secondaryHref="/family"
+          secondaryLabel="Public overview"
         />
 
         <PreviewSection
           id="preview-lab"
           icon="🧪"
           eyebrow="Lab / Tools"
-          title="Where experiments become products."
-          body="Prototypes, utilities, and fast iterations. Some will graduate into full systems, some will stay sharp little tools that solve one problem extremely well."
-          primaryHref="/lab"
+          title="Experiments and prototypes you can actually use."
+          body="Fast iterations and utilities—some become full products, some stay sharp single-purpose tools."
+          primaryHref="/apps/lab"
           primaryLabel="Open Lab"
-          secondaryHref="/lab#latest"
-          secondaryLabel="What’s new"
+          secondaryHref="/lab"
+          secondaryLabel="Public overview"
         />
 
         <PreviewSection
           id="preview-services"
           icon="🧰"
           eyebrow="Services"
-          title="Practical help, clear pricing, no mystery meat."
-          body="Packages and rates for building, fixing, advising, or auditing. This is where people go when they want DaFTitude applied directly to their situation."
-          primaryHref="/services#pricing"
-          primaryLabel="View pricing"
-          secondaryHref="/contact"
-          secondaryLabel="Talk first"
+          title="Packages, pricing, and direct help."
+          body="When you want DaFTitude applied to your situation: builds, audits, and advisory."
+          primaryHref="/apps/services"
+          primaryLabel="Open Services"
+          secondaryHref="/services"
+          secondaryLabel="Public overview"
         />
-
-        {/* FOOTER */}
-        <footer className="footer" style={{ marginTop: 26 }}>
-          <div className="footerInner">
-            <div className="footerLeft">© {new Date().getFullYear()} DaFTitude</div>
-            <div className="footerRight">
-              <Link href="/donate" className="footerLink">
-                Donate
-              </Link>
-              <Link href="/contact" className="footerLink">
-                Contact
-              </Link>
-            </div>
-          </div>
-        </footer>
       </div>
     </main>
   );
