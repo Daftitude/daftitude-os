@@ -30,8 +30,10 @@
   --radius: 18px;
 
   /* Typography */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
 }
 
 html,
@@ -67,7 +69,14 @@ p {
   margin: 0;
 }
 
-/* ===== Navbar ===== */
+/* Small utility */
+.muted {
+  color: var(--muted2);
+}
+
+/* =========================
+   Navbar
+   ========================= */
 .navShell {
   position: sticky;
   top: 0;
@@ -117,6 +126,7 @@ p {
   align-items: center;
 }
 
+/* Shared button base */
 .navBtnPrimary,
 .navBtnGhost {
   display: inline-flex;
@@ -155,10 +165,12 @@ p {
   .navLinks {
     display: none;
   }
-
   /* mobile menu later */
 }
-/* Auth pages */
+
+/* =========================
+   Auth pages
+   ========================= */
 .authPage {
   min-height: calc(100vh - 120px);
   display: grid;
@@ -270,7 +282,9 @@ p {
   margin-top: 16px;
   text-align: center;
 }
-/* Clerk bridge styles (match DaFTitude glass system) */
+/* =========================
+   Clerk bridge styles (match DaFTitude glass system)
+   ========================= */
 .clerkCard {
   background: transparent !important;
   border: none !important;
@@ -278,13 +292,17 @@ p {
   padding: 0 !important;
 }
 
-.clerkHeaderTitle { color: rgba(255,255,255,0.92) !important; }
-.clerkHeaderSubtitle { color: rgba(255,255,255,0.70) !important; }
+.clerkHeaderTitle {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+.clerkHeaderSubtitle {
+  color: rgba(255, 255, 255, 0.70) !important;
+}
 
 .clerkInput {
-  background: rgba(0,0,0,0.25) !important;
-  border: 1px solid rgba(255,255,255,0.10) !important;
-  color: rgba(255,255,255,0.92) !important;
+  background: rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
   border-radius: 12px !important;
 }
 
@@ -294,19 +312,16 @@ p {
 }
 
 .clerkLink {
-  color: rgba(255,255,255,0.90) !important;
-  border-bottom: 1px solid rgba(255,255,255,0.18) !important;
+  color: rgba(255, 255, 255, 0.90) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18) !important;
   text-decoration: none !important;
 }
 
 .clerkSocialBtn {
   border-radius: 999px !important;
-  background: rgba(255,255,255,0.06) !important;
-  border: 1px solid rgba(255,255,255,0.10) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
 }
-
-
-
 
 /* =========================
    Base Links / Pills
@@ -351,9 +366,8 @@ p {
 .page {
   min-height: 100vh;
 }
-
 /* =========================
-   Cards (your “game menu” feel)
+   Cards (game menu feel) — deduped
    ========================= */
 .menuGrid {
   max-width: 1100px;
@@ -363,9 +377,12 @@ p {
   gap: 18px;
 }
 
+/* We use:
+   - ::before  => watermark logo background
+   - ::after   => hover glow overlay
+*/
 .menuCard {
-  grid-column: span 4;
-  /* 3 across on desktop */
+  grid-column: span 4; /* 3 across on desktop */
   position: relative;
   display: block;
   text-decoration: none;
@@ -378,7 +395,22 @@ p {
   transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
 }
 
+/* Watermark logo */
 .menuCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--cardLogo);
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  background-size: 220px;
+  opacity: 0.08;
+  filter: grayscale(100%);
+  pointer-events: none;
+}
+
+/* Hover glow wash */
+.menuCard::after {
   content: "";
   position: absolute;
   inset: -2px;
@@ -387,6 +419,7 @@ p {
     radial-gradient(600px 240px at 80% 35%, rgba(255, 190, 90, 0.16), transparent 58%);
   opacity: 0;
   transition: opacity 220ms ease;
+  pointer-events: none;
 }
 
 .menuCard:hover {
@@ -395,7 +428,7 @@ p {
   background: linear-gradient(180deg, var(--panel2), rgba(255, 255, 255, 0.03));
 }
 
-.menuCard:hover::before {
+.menuCard:hover::after {
   opacity: 1;
 }
 
@@ -406,6 +439,20 @@ p {
   gap: 12px;
   position: relative;
   z-index: 1;
+}
+
+.menuCardTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menuCardIcon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+  opacity: 0.95;
 }
 
 .menuCardTitle {
@@ -432,65 +479,7 @@ p {
   z-index: 1;
 }
 
-/* Card body becomes a "jump link" (scrolls to preview sections) */
-.menuCardJump {
-  position: relative;
-  z-index: 1;
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
-
-/* Keep hover/shine effect when hovering the card jump area */
-.menuCardJump:hover .menuCardHint {
-  color: rgba(255, 255, 255, 0.82);
-}
-
-/* Ecosystem card logo background */
-.previewLogo {
-  width: 180px;
-  height: auto;
-  margin: 14px 0 6px;
-  opacity: 0.9;
-  filter: drop-shadow(0 10px 26px rgba(0,0,0,0.35));
-}
-
-.menuCard {
-  position: relative;
-  overflow: hidden;
-}
-
-.menuCard::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: var(--cardLogo);
-  background-repeat: no-repeat;
-  background-position: right 18px center;
-  background-size: 220px;
-  opacity: 0.08;
-  /* faint */
-  filter: grayscale(100%);
-  pointer-events: none;
-}
-
-/* Title row with icon */
-.menuCardTitleRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.menuCardIcon {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
-  opacity: 0.95;
-}
-
-
-/* Buttons row */
+/* Buttons row — single source of truth */
 .cardActions {
   margin-top: 14px;
   display: flex;
@@ -498,10 +487,8 @@ p {
   flex-wrap: wrap;
   position: relative;
   z-index: 2;
-  /* above the jump area */
 }
 
-/* Buttons (VIEW / READ MORE) */
 .cardBtn {
   display: inline-flex;
   align-items: center;
@@ -531,89 +518,11 @@ p {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
 }
 
-/* Preview sections */
-.ecosystemPreviews {
-  margin-top: 70px;
-  display: flex;
-  flex-direction: column;
-  gap: 70px;
-}
-
-.ecosystemPreview {
-  scroll-margin-top: 120px;
-  /* helps when navbar is sticky */
-}
-
-.ecosystemPreviewTitle {
-  font-size: 28px;
-  font-weight: 850;
-  letter-spacing: -0.01em;
-  margin: 0;
-}
-
-.ecosystemPreviewDesc {
-  margin-top: 12px;
-  max-width: 760px;
-  color: var(--muted);
-  line-height: 1.65;
-}
-
-.ecosystemPreviewStage {
-  margin-top: 18px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-  backdrop-filter: blur(10px);
-  padding: 18px;
-  min-height: 180px;
-  color: var(--muted2);
-}
-
-
-/* =========================
-   Card Actions (Launch / Read)
-   ========================= */
-.cardActions {
-  margin-top: 14px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 1;
-}
-
-.cardBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 14px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-size: 12px;
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
-  min-width: 140px;
-}
-
-.cardBtn:hover {
-  transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, 0.20);
-}
-
-.cardBtnPrimary {
-  background: linear-gradient(90deg, rgba(80, 200, 255, 0.18), rgba(255, 190, 90, 0.12));
-  border-color: rgba(80, 200, 255, 0.22);
-}
-
 .cardBtnGhost {
   background: rgba(0, 0, 0, 0.20);
 }
 
-/* =========================
-   Card Metrics (3 tiles)
-   ========================= */
+/* Card Metrics (optional) */
 .cardMetrics {
   margin-top: 12px;
   display: grid;
@@ -642,7 +551,6 @@ p {
   font-size: 10px;
   color: rgba(255, 255, 255, 0.80);
   letter-spacing: 0.10em;
-  margin-top: 2px;
   text-transform: uppercase;
 }
 
@@ -654,22 +562,18 @@ p {
   line-height: 1.25;
 }
 
+@media (max-width: 960px) {
+  .menuCard {
+    grid-column: span 12;
+  }
+}
+
 @media (max-width: 700px) {
   .cardMetrics {
     grid-template-columns: 1fr;
   }
-
   .cardBtn {
     width: 100%;
-  }
-}
-
-/* =========================
-   Responsive
-   ========================= */
-@media (max-width: 960px) {
-  .menuCard {
-    grid-column: span 12;
   }
 }
 
@@ -792,23 +696,11 @@ p {
   padding: 28px 22px 18px;
 }
 
-.homeHero::before {
-  content: "";
-  display: block;
-  height: 0;
-}
-.homeHeroBrand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-.homeHeroLogo {
-  border-radius: 14px; /* soft icon feel */
+.homeHeroMarkImg {
   height: auto;
   width: auto;
 }
+
 .homeHeadline {
   margin: 12px 0 0;
   font-size: clamp(34px, 4.2vw, 56px);
@@ -857,11 +749,9 @@ p {
   margin: 0 0 14px;
   color: var(--muted);
 }
-
 /* =========================
-   Preview Sections (Home)
+   Preview Sections (Home + Services reuse)
    ========================= */
-
 .previewSection {
   margin-top: 54px;
   scroll-margin-top: 110px;
@@ -901,6 +791,14 @@ p {
   max-width: 62ch;
 }
 
+.previewLogo {
+  width: 180px;
+  height: auto;
+  margin: 14px 0 6px;
+  opacity: 0.9;
+  filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.35));
+}
+
 .previewCtas {
   margin-top: 14px;
   display: flex;
@@ -930,6 +828,23 @@ p {
   gap: 12px;
 }
 
+.previewStageTitleRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.previewIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.22);
+  font-size: 18px;
+}
+
 .previewStageTitle {
   font-size: 12px;
   letter-spacing: 0.12em;
@@ -937,50 +852,7 @@ p {
   color: rgba(255, 255, 255, 0.80);
 }
 
-/* tiles */
-.previewTiles {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-  flex: 1;
-}
-
-.previewTile {
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(0, 0, 0, 0.22);
-  padding: 12px;
-}
-
-.previewTileKicker {
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.70);
-}
-
-.previewTileTitle {
-  margin-top: 6px;
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-}
-
-.previewTileSub {
-  margin-top: 6px;
-  color: var(--muted2);
-  line-height: 1.45;
-  font-size: 13px;
-}
-
-.previewStageFoot {
-  margin-top: 2px;
-  font-size: 12px;
-  color: var(--muted2);
-  letter-spacing: 0.02em;
-}
-
-/* ===== Preview Tabs ===== */
+/* Tabs */
 .previewTabs {
   display: inline-flex;
   gap: 6px;
@@ -1014,54 +886,6 @@ p {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.05));
   color: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-/* ===== Tile Layout Modes ===== */
-.previewTiles.grid4 {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  flex: 1;
-}
-
-.previewTiles.stack3 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-  flex: 1;
-}
-
-/* On small screens everything becomes stacked */
-@media (max-width: 980px) {
-  .previewTiles.grid4 {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* responsive */
-@media (max-width: 980px) {
-  .previewCols {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ===== Preview Visuals ===== */
-
-.previewStageTitleRow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.previewIcon {
-  width: 34px;
-  height: 34px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.22);
-  font-size: 18px;
 }
 
 /* Mini mock UI block */
@@ -1107,12 +931,68 @@ p {
   border: 1px solid rgba(255, 255, 255, 0.09);
 }
 
+/* Tiles */
+.previewTiles {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  flex: 1;
+}
+
+.previewTiles.grid4 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.previewTiles.stack3 {
+  grid-template-columns: 1fr;
+}
+
+.previewTile {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.22);
+  padding: 12px;
+}
+
+.previewTileKicker {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.previewTileTitle {
+  margin-top: 6px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.previewTileSub {
+  margin-top: 6px;
+  color: var(--muted2);
+  line-height: 1.45;
+  font-size: 13px;
+}
+
+.previewStageFoot {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--muted2);
+  letter-spacing: 0.02em;
+}
+
 @media (max-width: 980px) {
+  .previewCols {
+    grid-template-columns: 1fr;
+  }
+  .previewTiles.grid4 {
+    grid-template-columns: 1fr;
+  }
   .previewMockCards {
     grid-template-columns: 1fr;
   }
 }
-
 /* =========================
    CTA Band
    ========================= */
@@ -1160,7 +1040,8 @@ p {
 }
 
 /* =========================
-   Footer
+   Footer (legacy + siteFooter)
+   Keep both in case components reference either.
    ========================= */
 .footer {
   margin-top: 28px;
@@ -1199,25 +1080,10 @@ p {
   color: rgba(255, 255, 255, 0.95);
 }
 
-
-@media (max-width: 900px) {
-  .menuCard {
-    grid-column: span 12;
-  }
-
-  .statTile {
-    grid-column: span 4;
-  }
-}
-
-@media (max-width: 700px) {
-  .statTile {
-    grid-column: span 6;
-  }
-}
+/* Newer site footer */
 .siteFooter {
   margin-top: 34px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(10, 12, 18, 0.35);
   backdrop-filter: blur(12px);
 }
@@ -1248,34 +1114,32 @@ p {
 
 .siteFooterBlurb {
   margin-top: 8px;
-  color: rgba(255,255,255,0.72);
+  color: rgba(255, 255, 255, 0.72);
   line-height: 1.55;
   max-width: 52ch;
 }
-
-.siteFooterCol {}
 
 .siteFooterHeading {
   font-weight: 650;
   font-size: 13px;
   letter-spacing: 0.18px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
+  color: rgba(255, 255, 255, 0.75);
   margin-bottom: 10px;
 }
 
 .siteFooterLines {
   display: grid;
   gap: 8px;
-  color: rgba(255,255,255,0.78);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .siteFooterLabel {
-  color: rgba(255,255,255,0.62);
+  color: rgba(255, 255, 255, 0.62);
 }
 
 .siteFooterLink {
-  color: rgba(255,255,255,0.90);
+  color: rgba(255, 255, 255, 0.90);
   text-decoration: none;
 }
 
@@ -1296,15 +1160,15 @@ p {
   display: grid;
   place-items: center;
   text-decoration: none;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
 }
 
 .siteFooterSocialBtn:hover {
   transform: translateY(-2px);
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.16);
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
 .siteFooterMeta {
@@ -1312,11 +1176,11 @@ p {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: rgba(255,255,255,0.68);
+  color: rgba(255, 255, 255, 0.68);
 }
 
 .siteFooterMiniLink {
-  color: rgba(255,255,255,0.84);
+  color: rgba(255, 255, 255, 0.84);
   text-decoration: none;
 }
 
@@ -1331,12 +1195,12 @@ p {
 .siteFooterBottom {
   margin-top: 18px;
   padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  color: rgba(255,255,255,0.62);
+  color: rgba(255, 255, 255, 0.62);
   font-size: 13px;
 }
 
@@ -1348,12 +1212,12 @@ p {
 }
 
 .siteFooterBottomLink {
-  color: rgba(255,255,255,0.78);
+  color: rgba(255, 255, 255, 0.78);
   text-decoration: none;
 }
 
 .siteFooterBottomLink:hover {
-  color: rgba(255,255,255,0.95);
+  color: rgba(255, 255, 255, 0.95);
   text-decoration: underline;
 }
 
@@ -1362,4 +1226,170 @@ p {
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+/* =========================
+   Services pricing reference table (bounded + responsive)
+   ========================= */
+.pricingTableShell {
+  margin-top: 18px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(16px);
+}
+
+.pricingTableHeader,
+.pricingRow {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr 1fr 1.1fr;
+  gap: 14px;
+  padding: 14px 16px;
+}
+
+.pricingTableHeader {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  background: rgba(0, 0, 0, 0.22);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pricingRow {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pricingRow:last-child {
+  border-bottom: none;
+}
+
+.pricingTypeTitle {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.pricingInfo {
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.pricingTypeSub {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.pricingMoney {
+  font-weight: 600;
+  white-space: nowrap;
+  align-self: start;
+  padding-top: 2px;
+}
+
+/* Pricing CTA row */
+.sectionCtaRow {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+/* Mobile: stack rows */
+@media (max-width: 980px) {
+  .pricingTableHeader {
+    display: none;
+  }
+
+  .pricingRow {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .pricingMoney {
+    opacity: 0.9;
+  }
+
+  .sectionCtaRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ==============================
+   Services page spacing + sizing (scoped)
+   ============================== */
+.servicesPage .homeHero {
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+
+.servicesPage .homeHeadline {
+  font-size: clamp(2.1rem, 3.4vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.servicesPage .homeSub {
+  max-width: 62ch;
+  margin-top: 14px;
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+.servicesPage .sectionShell {
+  padding-top: 42px;
+  padding-bottom: 42px;
+}
+
+.servicesPage .sectionInner {
+  max-width: 1100px; /* tighten overall width */
+}
+
+/* tighten preview section padding */
+.servicesPage .previewShell {
+  padding-top: 46px;
+  padding-bottom: 46px;
+}
+
+.servicesPage .previewTitle {
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+}
+
+.servicesPage .previewBody {
+  font-size: 0.98rem;
+  opacity: 0.85;
+}
+
+/* Pricing table width + behavior */
+.servicesPage .pricingTableShell {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.servicesPage .pricingTableHeader,
+.servicesPage .pricingTableBody {
+  min-width: 980px; /* enables controlled horizontal scroll */
+}
+
+.servicesPage .pricingTypeTitle {
+  font-size: 0.98rem;
+}
+
+.servicesPage .pricingInfo,
+.servicesPage .pricingTypeSub {
+  font-size: 0.88rem;
+  opacity: 0.75;
+  line-height: 1.25;
+}
+
+.servicesPage .pricingRow {
+  padding-top: 18px;
+  padding-bottom: 18px;
 }

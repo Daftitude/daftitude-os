@@ -11,7 +11,24 @@ export default function SignupPage() {
           <p className="authSubtitle">Create your DaFTitude account.</p>
         </header>
 
-        <SignUp />
+        <SignUp
+          appearance={{
+            elements: {
+              card: "clerkCard",
+              cardBox: "clerkCard",
+              headerTitle: "clerkHeaderTitle",
+              headerSubtitle: "clerkHeaderSubtitle",
+
+              formFieldInput: "clerkInput",
+              formButtonPrimary: "navBtnPrimary clerkPrimaryBtn",
+
+              footerActionLink: "clerkLink",
+              formResendCodeLink: "clerkLink",
+
+              socialButtonsBlockButton: "clerkSocialBtn",
+            },
+          }}
+        />
       </section>
     </main>
   );

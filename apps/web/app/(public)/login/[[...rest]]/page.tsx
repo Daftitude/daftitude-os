@@ -13,7 +13,25 @@ export default function LoginPage() {
           </p>
         </header>
 
-        <SignIn />
+        <SignIn
+          appearance={{
+            elements: {
+              card: "clerkCard",
+              cardBox: "clerkCard",
+              headerTitle: "clerkHeaderTitle",
+              headerSubtitle: "clerkHeaderSubtitle",
+
+              formFieldInput: "clerkInput",
+              formButtonPrimary: "navBtnPrimary clerkPrimaryBtn",
+
+              footerActionLink: "clerkLink",
+              formResendCodeLink: "clerkLink",
+              identityPreviewEditButton: "clerkLink",
+
+              socialButtonsBlockButton: "clerkSocialBtn",
+            },
+          }}
+        />
       </section>
     </main>
   );
