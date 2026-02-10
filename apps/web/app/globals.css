@@ -28,6 +28,7 @@
   --amber: rgba(255, 190, 90, 0.22);
 
   --radius: 18px;
+  --container: 1100px;
 
   /* Typography */
   --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
@@ -367,10 +368,39 @@ p {
   min-height: 100vh;
 }
 /* =========================
+   Shared Sections (Services + future pages)
+   ========================= */
+   .sectionShell {
+    padding: 42px 0;
+  }
+  
+  .sectionInner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 18px;
+  }
+  
+  .sectionHeader {
+    margin-bottom: 14px;
+  }
+  
+  .sectionTitle {
+    margin: 0;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    font-weight: 800;
+  }
+  
+  .sectionLead {
+    margin-top: 8px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+/* =========================
    Cards (game menu feel) — deduped
    ========================= */
 .menuGrid {
-  max-width: 1100px;
+  max-width: var(--container);
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -585,7 +615,7 @@ p {
 }
 
 .shellInner {
-  max-width: 1100px;
+  max-width: var(--container);
   margin: 0 auto;
   padding: 28px 18px 56px;
 }
@@ -595,7 +625,7 @@ p {
 }
 
 .shellHeroInner {
-  max-width: 1100px;
+  max-width: var(--container);
   margin: 0 auto;
   border-radius: 22px;
   border: 1px solid rgba(255, 255, 255, 0.10);
@@ -681,7 +711,7 @@ p {
 }
 
 .homeInner {
-  max-width: 1100px;
+  max-width: var(--container);
   margin: 0 auto;
   padding: 34px 18px 56px;
 }
@@ -1049,7 +1079,7 @@ p {
 }
 
 .footerInner {
-  max-width: 1100px;
+  max-width: var(--container);
   margin: 0 auto;
   padding: 18px 18px;
   display: flex;
@@ -1393,3 +1423,32 @@ p {
   padding-top: 18px;
   padding-bottom: 18px;
 }
+/* =========================
+   Services split layout (preview left, pricing right)
+   ========================= */
+   .servicesSplit {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 22px;
+    align-items: start;
+  }
+  
+  .servicesLeft,
+  .servicesRight {
+    min-width: 0;
+  }
+  
+  .servicesRight {
+    justify-self: end;
+    width: min(780px, 100%);
+  }
+  
+  @media (max-width: 980px) {
+    .servicesSplit {
+      grid-template-columns: 1fr;
+    }
+    .servicesRight {
+      justify-self: stretch;
+      width: 100%;
+    }
+  }

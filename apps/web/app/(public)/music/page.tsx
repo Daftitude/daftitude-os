@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -12,18 +12,7 @@ function scrollToId(id: string) {
 
 type Tile = { k: string; t: string; s: string };
 
-function PreviewSection({
-  id,
-  iconSrc,
-  eyebrow,
-  title,
-  body,
-  primaryHref,
-  primaryLabel,
-  secondaryHref,
-  secondaryLabel,
-  tiles,
-}: {
+function PreviewSection(props: {
   id: string;
   iconSrc: string;
   eyebrow: string;
@@ -35,6 +24,9 @@ function PreviewSection({
   secondaryLabel: string;
   tiles: Tile[];
 }) {
+  const { id, iconSrc, eyebrow, title, body, primaryHref, primaryLabel, secondaryHref, secondaryLabel, tiles } =
+    props;
+
   return (
     <section id={id} className="previewSection">
       <div className="previewShell">
@@ -69,13 +61,13 @@ function PreviewSection({
 
               <div className="previewTabs" role="tablist" aria-label="Preview tabs">
                 <button className="previewTab isActive" type="button" role="tab">
-                  Latest
+                  Projects
                 </button>
                 <button className="previewTab" type="button" role="tab">
-                  Tools
+                  Templates
                 </button>
                 <button className="previewTab" type="button" role="tab">
-                  WIP
+                  Sound
                 </button>
               </div>
             </div>
@@ -93,7 +85,7 @@ function PreviewSection({
               </div>
             </div>
 
-            <div className="previewTiles grid4">
+            <div className="previewTiles stack3">
               {tiles.map((x) => (
                 <div key={`${id}-${x.t}`} className="previewTile">
                   <div className="previewTileKicker">{x.k}</div>
@@ -104,7 +96,7 @@ function PreviewSection({
             </div>
 
             <div className="previewStageFoot">
-              Sign in to access member-only tools and save your workspace.
+              Sign in to save projects, templates, and your workflow.
             </div>
           </div>
         </div>
@@ -113,21 +105,20 @@ function PreviewSection({
   );
 }
 
-export default function LabPage() {
+export default function MusicPage() {
   const tiles: Tile[] = [
-    { k: "Featured", t: "Prototypes", s: "Experiments that may graduate." },
-    { k: "Tool", t: "Utilities", s: "Solve one thing extremely well." },
-    { k: "R&D", t: "Exploration", s: "Try, measure, iterate." },
-    { k: "WIP", t: "Build Queue", s: "What’s currently cooking." },
+    { k: "Featured", t: "Projects", s: "Tracks and experiments." },
+    { k: "Workflow", t: "Templates", s: "Repeatable creative pipelines." },
+    { k: "Sound", t: "Design", s: "Textures, energy, and polish." },
   ];
 
   return (
-    <main className="page labPage">
+    <main className="page musicPage">
       <section className="homeHero">
-        <div className="homeHeroMark" aria-label="DaFTitude Lab">
+        <div className="homeHeroMark" aria-label="DaFTitude Music">
           <Image
-            src="/brand/daftitude-lab.png"
-            alt="DaFTitude Lab"
+            src="/brand/daftitude-music.png"
+            alt="DaFTitude Music"
             width={220}
             height={220}
             priority
@@ -135,29 +126,28 @@ export default function LabPage() {
           />
         </div>
 
-        <div className="shellEyebrow">DaFTitude • Lab</div>
+        <div className="shellEyebrow">DaFTitude • Music</div>
 
         <h1 className="homeHeadline">
-          Fast experiments.
+          Creative output.
           <br />
-          Sharp tools.
+          Engineered.
         </h1>
 
         <p className="homeSub">
-          The Lab is where prototypes become products. Create an account to unlock member tools
-          and save your workspace.
+          Production experiments, templates, playlists, and process. Create an account to save what you’re building.
         </p>
 
         <div className="homeHeroLinks">
           <a
-            href="#preview-lab"
+            href="#preview-music"
             className="heroLink heroLinkPrimary"
             onClick={(e) => {
               e.preventDefault();
-              scrollToId("preview-lab");
+              scrollToId("preview-music");
             }}
           >
-            Preview the lab →
+            Preview the workflow →
           </a>
 
           <Link href="/login" className="heroLink">
@@ -171,11 +161,11 @@ export default function LabPage() {
 
         <a
           className="homeScrollHint"
-          href="#preview-lab"
+          href="#preview-music"
           aria-label="Scroll to preview"
           onClick={(e) => {
             e.preventDefault();
-            scrollToId("preview-lab");
+            scrollToId("preview-music");
           }}
         >
           ↓ scroll ↓
@@ -183,11 +173,11 @@ export default function LabPage() {
       </section>
 
       <PreviewSection
-        id="preview-lab"
-        iconSrc="/brand/daftitude-lab.png"
-        eyebrow="Lab / Tools"
-        title="Where experiments become real utilities."
-        body="Preview the Lab. Sign in to access member-only tools, save your setup, and follow what’s shipping next."
+        id="preview-music"
+        iconSrc="/brand/daftitude-music.png"
+        eyebrow="Music"
+        title="Sound as a system."
+        body="Preview the Music hub. Sign in to save projects, templates, and the workflow that makes output consistent."
         primaryHref="/signup"
         primaryLabel="Create account"
         secondaryHref="/login"

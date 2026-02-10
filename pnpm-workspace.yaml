@@ -3,5 +3,6 @@ packages:
   - packages/*
 
 onlyBuiltDependencies:
+  - '@clerk/shared'
   - sharp
   - unrs-resolver

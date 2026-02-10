@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -12,18 +12,7 @@ function scrollToId(id: string) {
 
 type Tile = { k: string; t: string; s: string };
 
-function PreviewSection({
-  id,
-  iconSrc,
-  eyebrow,
-  title,
-  body,
-  primaryHref,
-  primaryLabel,
-  secondaryHref,
-  secondaryLabel,
-  tiles,
-}: {
+function PreviewSection(props: {
   id: string;
   iconSrc: string;
   eyebrow: string;
@@ -35,6 +24,9 @@ function PreviewSection({
   secondaryLabel: string;
   tiles: Tile[];
 }) {
+  const { id, iconSrc, eyebrow, title, body, primaryHref, primaryLabel, secondaryHref, secondaryLabel, tiles } =
+    props;
+
   return (
     <section id={id} className="previewSection">
       <div className="previewShell">
@@ -69,13 +61,13 @@ function PreviewSection({
 
               <div className="previewTabs" role="tablist" aria-label="Preview tabs">
                 <button className="previewTab isActive" type="button" role="tab">
-                  Latest
+                  Roadmaps
                 </button>
                 <button className="previewTab" type="button" role="tab">
-                  Tools
+                  Notes
                 </button>
                 <button className="previewTab" type="button" role="tab">
-                  WIP
+                  Drills
                 </button>
               </div>
             </div>
@@ -93,7 +85,7 @@ function PreviewSection({
               </div>
             </div>
 
-            <div className="previewTiles grid4">
+            <div className="previewTiles stack3">
               {tiles.map((x) => (
                 <div key={`${id}-${x.t}`} className="previewTile">
                   <div className="previewTileKicker">{x.k}</div>
@@ -104,7 +96,7 @@ function PreviewSection({
             </div>
 
             <div className="previewStageFoot">
-              Sign in to access member-only tools and save your workspace.
+              Sign in to save roadmaps, track mastery, and keep receipts.
             </div>
           </div>
         </div>
@@ -113,21 +105,20 @@ function PreviewSection({
   );
 }
 
-export default function LabPage() {
+export default function StudyPage() {
   const tiles: Tile[] = [
-    { k: "Featured", t: "Prototypes", s: "Experiments that may graduate." },
-    { k: "Tool", t: "Utilities", s: "Solve one thing extremely well." },
-    { k: "R&D", t: "Exploration", s: "Try, measure, iterate." },
-    { k: "WIP", t: "Build Queue", s: "What’s currently cooking." },
+    { k: "Featured", t: "Roadmaps", s: "Structured learning paths." },
+    { k: "Tools", t: "Notes & Drills", s: "Retention + repetition systems." },
+    { k: "Output", t: "Projects", s: "Proof, not vibes." },
   ];
 
   return (
-    <main className="page labPage">
+    <main className="page studyPage">
       <section className="homeHero">
-        <div className="homeHeroMark" aria-label="DaFTitude Lab">
+        <div className="homeHeroMark" aria-label="DaFTitude Study">
           <Image
-            src="/brand/daftitude-lab.png"
-            alt="DaFTitude Lab"
+            src="/brand/daftitude-study.png"
+            alt="DaFTitude Study"
             width={220}
             height={220}
             priority
@@ -135,29 +126,28 @@ export default function LabPage() {
           />
         </div>
 
-        <div className="shellEyebrow">DaFTitude • Lab</div>
+        <div className="shellEyebrow">DaFTitude • Study</div>
 
         <h1 className="homeHeadline">
-          Fast experiments.
+          Learn on purpose.
           <br />
-          Sharp tools.
+          Keep what you earn.
         </h1>
 
         <p className="homeSub">
-          The Lab is where prototypes become products. Create an account to unlock member tools
-          and save your workspace.
+          Roadmaps, drills, and note systems built for retention. Create an account to save your paths and track progress.
         </p>
 
         <div className="homeHeroLinks">
           <a
-            href="#preview-lab"
+            href="#preview-study"
             className="heroLink heroLinkPrimary"
             onClick={(e) => {
               e.preventDefault();
-              scrollToId("preview-lab");
+              scrollToId("preview-study");
             }}
           >
-            Preview the lab →
+            Preview the systems →
           </a>
 
           <Link href="/login" className="heroLink">
@@ -171,11 +161,11 @@ export default function LabPage() {
 
         <a
           className="homeScrollHint"
-          href="#preview-lab"
+          href="#preview-study"
           aria-label="Scroll to preview"
           onClick={(e) => {
             e.preventDefault();
-            scrollToId("preview-lab");
+            scrollToId("preview-study");
           }}
         >
           ↓ scroll ↓
@@ -183,11 +173,11 @@ export default function LabPage() {
       </section>
 
       <PreviewSection
-        id="preview-lab"
-        iconSrc="/brand/daftitude-lab.png"
-        eyebrow="Lab / Tools"
-        title="Where experiments become real utilities."
-        body="Preview the Lab. Sign in to access member-only tools, save your setup, and follow what’s shipping next."
+        id="preview-study"
+        iconSrc="/brand/daftitude-study.png"
+        eyebrow="Study"
+        title="Systems that turn chaos into compounding skill."
+        body="Preview the Study hub. Sign in to save roadmaps, track your drill streaks, and build a personal knowledge base that doesn’t rot."
         primaryHref="/signup"
         primaryLabel="Create account"
         secondaryHref="/login"

@@ -326,168 +326,90 @@ export default function ServicesPage() {
         </a>
       </section>
 
-      {/* SERVICES GRID */}
-      <section id="services" className="sectionShell">
-        <div className="sectionInner">
-          <header className="sectionHeader">
-            <h2 className="sectionTitle">What I actually do</h2>
-            <p className="sectionLead">
-              Focused scopes. Solid delivery. No “mystery tech” that only works
-              on my laptop.
-            </p>
-          </header>
+      {/* SERVICES + PRICING SPLIT */}
+      <section className="sectionShell" id="services">
+        <div className="sectionInner servicesSplit">
+          {/* LEFT: Services preview */}
+          <div className="servicesLeft">
+            <header className="sectionHeader">
+              <h2 className="sectionTitle">What I actually do</h2>
+              <p className="sectionLead">
+                Focused scopes. Solid delivery. No “mystery tech” that only works on my laptop.
+              </p>
+            </header>
 
-          {/* SERVICES PREVIEW GRID */}
-          <PreviewSection
-            id="services"
-            iconSrc="/brand/daftitude-services.png"
-            eyebrow="Services"
-            title="Real work. Real outcomes. Built clean."
-            body="This is the practical side of DaFTitude: building, fixing, optimizing, and advising. The tiles reflect the main ways people usually need help—each one can expand into dedicated pages and case studies later."
-            primaryHref="#pricing"
-            primaryLabel="View pricing"
-            secondaryHref="/contact"
-            secondaryLabel="Talk it through"
-            tiles={SERVICES_TILES}
-          />
-
-        </div>
-      </section>
-      <section className="sectionShell">
-        <div className="sectionInner">
-          <header className="sectionHeader">
-            <h2 className="sectionTitle">Why create an account?</h2>
-            <p className="sectionLead">
-              It’s not for spam. It’s for clarity, tracking, and getting you a real answer faster.
-            </p>
-          </header>
-
-          <div className="cardGrid">
-            <div className="glassCard">
-              <div className="glassCardTop"><div className="pill">Quote</div></div>
-              <h3 className="glassCardTitle">Request pricing for your exact scope</h3>
-              <p className="glassCardDesc">Submit details once, get a response that matches reality.</p>
-            </div>
-
-            <div className="glassCard">
-              <div className="glassCardTop"><div className="pill">Intake</div></div>
-              <h3 className="glassCardTitle">Guided intake (no back-and-forth)</h3>
-              <p className="glassCardDesc">Answer a few questions and upload screenshots/files if needed.</p>
-            </div>
-
-            <div className="glassCard">
-              <div className="glassCardTop"><div className="pill">Tracking</div></div>
-              <h3 className="glassCardTitle">Project updates + receipts</h3>
-              <p className="glassCardDesc">Progress, notes, deliverables, and invoices in one place.</p>
-            </div>
+            <PreviewSection
+              id="services-preview"
+              iconSrc="/brand/daftitude-services.png"
+              eyebrow="Services"
+              title="Real work. Real outcomes. Built clean."
+              body="This is the practical side of DaFTitude: building, fixing, optimizing, and advising. The tiles reflect the main ways people usually need help—each one can expand into dedicated pages and case studies later."
+              primaryHref="#pricing"
+              primaryLabel="View pricing"
+              secondaryHref="/contact"
+              secondaryLabel="Talk it through"
+              tiles={SERVICES_TILES}
+            />
           </div>
 
-          <div className="sectionCtaRow">
-            <p className="muted">
-              You can browse everything publicly. Accounts unlock the “do the work” workflow.
-            </p>
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-              <Link className="navBtnGhost" href="/login">Sign in</Link>
-              <Link className="navBtnPrimary" href="/signup">Get started →</Link>
-            </div>
-          </div>
-        </div>
-      </section>
+          {/* RIGHT: Pricing */}
+          <div className="servicesRight" id="pricing">
+            <header className="sectionHeader">
+              <h2 className="sectionTitle">What Similar Work Has Cost</h2>
+              <p className="sectionLead muted">
+                ⓘ These numbers reflect past projects and typical scopes. They’re meant to set expectations, not force a fixed price.
+              </p>
+              <p className="sectionLead">
+                Think of this as reference data, not a menu.
+              </p>
+            </header>
 
-      {/* PRICING REFERENCE */}
-      <section id="pricing" className="sectionShell">
-        <div className="sectionInner">
-          <header className="sectionHeader">
-            <h2 className="sectionTitle">What Similar Work Has Cost</h2>
-            <p className="sectionLead">
-              <span className="muted">
-                ⓘ These numbers reflect past projects and typical scopes. They’re
-                meant to set expectations, not force a fixed price. Actual needs
-                vary.
-              </span>
-            </p>
-            <p className="sectionLead">
-              The list below shows the kinds of work I do and what similar
-              projects have cost in the past. Think of this as reference data,
-              not a menu.
-            </p>
-          </header>
+            <div
+              className="pricingTableShell"
+              role="region"
+              aria-label="Pricing reference"
+            >
+              <div className="pricingTableHeader">
+                <div className="pricingCol pricingType">Type of Work</div>
+                <div className="pricingCol">Typical</div>
+                <div className="pricingCol">Expanded</div>
+                <div className="pricingCol">Custom / Ongoing</div>
+              </div>
 
-          <div
-            className="pricingTableShell"
-            role="region"
-            aria-label="Pricing reference"
-          >
-            <div className="pricingTableHeader">
-              <div className="pricingCol pricingType">Type of Work</div>
-              <div className="pricingCol">Typical</div>
-              <div className="pricingCol">Expanded</div>
-              <div className="pricingCol">Custom / Ongoing</div>
-            </div>
-
-            <div className="pricingTableBody">
-              {COST_ROWS.map((row) => (
-                <div className="pricingRow" key={row.type}>
-                  <div className="pricingCol pricingType">
-                    <div className="pricingTypeTop">
-                      <div className="pricingTypeTitle">{row.type}</div>
-                      <div className="pricingInfo muted">ⓘ {row.info}</div>
+              <div className="pricingTableBody">
+                {COST_ROWS.map((row) => (
+                  <div className="pricingRow" key={row.type}>
+                    <div className="pricingCol pricingType">
+                      <div className="pricingTypeTop">
+                        <div className="pricingTypeTitle">{row.type}</div>
+                        <div className="pricingInfo muted">ⓘ {row.info}</div>
+                      </div>
+                      <div className="pricingTypeSub muted">
+                        {row.typicalLabel}
+                      </div>
                     </div>
-                    <div className="pricingTypeSub muted">
-                      {row.typicalLabel}
-                    </div>
+
+                    <div className="pricingCol pricingMoney">{row.typical}</div>
+                    <div className="pricingCol pricingMoney">{row.expanded}</div>
+                    <div className="pricingCol pricingMoney">{row.custom}</div>
                   </div>
-
-                  <div className="pricingCol pricingMoney">{row.typical}</div>
-                  <div className="pricingCol pricingMoney">{row.expanded}</div>
-                  <div className="pricingCol pricingMoney">{row.custom}</div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="sectionCtaRow">
-            <p className="muted">
-              If you’re unsure where your situation fits, that’s normal. The fastest path is creating
-              an account and submitting your scope — you’ll get a direct answer without guesswork.
-            </p>
-            <Link className="navBtnPrimary" href="/signup">
-              Create account →
-            </Link>
-
-            <Link className="navBtnPrimary" href="/contact">
-              Talk it through →
-            </Link>
+            <div className="sectionCtaRow">
+              <p className="muted">
+                The fastest way to get a real answer is to create an account and submit your scope.
+              </p>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                <Link className="navBtnGhost" href="/login">Sign in</Link>
+                <Link className="navBtnPrimary" href="/signup">Create account →</Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-    </main>
+    </main >
   );
-}
 
-function ServiceCard({
-  title,
-  desc,
-  href,
-  tag,
-}: {
-  title: string;
-  desc: string;
-  href: string;
-  tag: string;
-}) {
-  return (
-    <div className="glassCard">
-      <div className="glassCardTop">
-        <div className="pill">{tag}</div>
-      </div>
-      <h3 className="glassCardTitle">{title}</h3>
-      <p className="glassCardDesc">{desc}</p>
-      <div className="glassCardActions">
-        <Link className="navBtnGhost" href={href}>
-          Learn more →
-        </Link>
-      </div>
-    </div>
-  );
 }
