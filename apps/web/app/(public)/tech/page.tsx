@@ -1,123 +1,232 @@
-﻿// apps/web/app/tech/page.tsx
-import PageShell, { FeedItem, GridCard, StatTile } from "@/components/PageShell";
+﻿"use client";
 
-const stats: StatTile[] = [
-  { label: "Briefs", value: "9", sublabel: "3 live • 6 queued" },
-  { label: "Guides", value: "0", sublabel: "building library" },
-  { label: "Tools", value: "2", sublabel: "in lab" },
-  { label: "Focus", value: "Systems", sublabel: "behavior + incentives" },
-  { label: "Mode", value: "Practical", sublabel: "real-world constraints" },
-  { label: "Updated", value: "Today", sublabel: "active build" },
-];
+import Link from "next/link";
+import Image from "next/image";
 
-const gridCards: GridCard[] = [
-  {
-    title: "🧠 Explore the Tech Hub",
-    subtitle: "Tips, guides, and deep dives into tech made simple.",
-    href: "/tech",
-    tag: "Active",
-  },
-  {
-    title: "📦 Unboxings & Reviews",
-    subtitle: "The real scoop on devices and gadgets before you buy.",
-    href: "/tech",
-    tag: "Building",
-  },
-  {
-    title: "🛠️ DIY Setup & Fixes",
-    subtitle: "Smart home installs, TV mounting, networks, and repairs.",
-    href: "/tech",
-    tag: "Active",
-  },
-  {
-    title: "📊 Product Comparisons",
-    subtitle: "Side-by-side breakdowns to pick the best fit.",
-    href: "/tech",
-    tag: "Building",
-  },
-  {
-    title: "🤖 AI & Automation Tips",
-    subtitle: "Practical AI usage + automation patterns that reduce friction.",
-    href: "/tech",
-    tag: "Active",
-  },
-  {
-    title: "📁 System Briefs",
-    subtitle: "Short, current observations about systems under pressure.",
-    href: "/tech",
-    tag: "Active",
-  },
-];
+function scrollToId(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  window.history.replaceState(null, "", `#${id}`);
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
-const feedItems: FeedItem[] = [
-  {
-    title: "Why Skill-Based Matchmaking Still Feels Unfair",
-    excerpt:
-      "Competitive matchmaking systems aim for balance, yet player trust often erodes even when outcomes are statistically fair.",
-    tags: ["Games", "Matchmaking"],
-    date: "Dec 2025",
-    href: "#",
-  },
-  {
-    title: "Dating Apps Are Optimizing for Engagement, Not Matches",
-    excerpt:
-      "Dating platforms increasingly reward attention and retention over successful long-term outcomes.",
-    tags: ["Platforms", "Algorithms"],
-    date: "Dec 2025",
-    href: "#",
-  },
-  {
-    title: "Flock Safety Cameras and the Normalization of Surveillance",
-    excerpt:
-      "License plate recognition systems are spreading rapidly, reshaping expectations around privacy and public safety.",
-    tags: ["Security", "Society"],
-    date: "Dec 2025",
-    href: "#",
-  },
-  {
-    title: "Social Media Is Reshaping Behavior Faster Than We Can Measure It",
-    excerpt: "Coming soon.",
-    tags: ["Platforms", "Psychology"],
-    comingSoon: true,
-  },
-  {
-    title: "Subscription Fatigue Is a Systemic Design Choice",
-    excerpt: "Coming soon.",
-    tags: ["Economy", "Products"],
-    comingSoon: true,
-  },
-  {
-    title: "The Job Market Isn’t Broken — It’s Optimized Differently",
-    excerpt: "Coming soon.",
-    tags: ["Work", "Incentives"],
-    comingSoon: true,
-  },
-];
+type Tile = { k: string; t: string; s: string };
+
+function PreviewSection(props: {
+  id: string;
+  iconSrc: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  primaryHref: string;
+  primaryLabel: string;
+  secondaryHref: string;
+  secondaryLabel: string;
+  tabs?: [string, string, string];
+  tiles: Tile[];
+  footnote?: string;
+}) {
+  const {
+    id,
+    iconSrc,
+    eyebrow,
+    title,
+    body,
+    primaryHref,
+    primaryLabel,
+    secondaryHref,
+    secondaryLabel,
+    tabs = ["Overview", "Guides", "Tools"],
+    tiles,
+    footnote = "Sign in to bookmark topics, request breakdowns, and track what you’ve read.",
+  } = props;
+
+  return (
+    <section id={id} className="previewSection">
+      <div className="previewShell">
+        <div className="previewCols">
+          {/* LEFT */}
+          <div className="previewCopy">
+            <div className="shellEyebrow">{eyebrow}</div>
+            <h3 className="previewTitle">{title}</h3>
+            <p className="previewBody">{body}</p>
+
+            <div className="previewLogoRow" aria-hidden="true">
+              <Image
+                src={iconSrc}
+                alt=""
+                width={160}
+                height={160}
+                className="previewLogo"
+              />
+            </div>
+
+            <div className="previewCtas">
+              <Link href={primaryHref} className="heroLink heroLinkPrimary">
+                {primaryLabel} →
+              </Link>
+              <Link href={secondaryHref} className="heroLink">
+                {secondaryLabel} →
+              </Link>
+            </div>
+          </div>
+
+          {/* RIGHT */}
+          <div className="previewStage" aria-label={`${eyebrow} preview`}>
+            <div className="previewStageTop">
+              <div className="previewStageTitleRow">
+                <div className="previewIcon" aria-hidden="true">
+                  <Image src={iconSrc} alt="" width={36} height={36} />
+                </div>
+                <div className="previewStageTitle">Preview</div>
+              </div>
+
+              <div className="previewTabs" role="tablist" aria-label="Preview tabs">
+                <button className="previewTab isActive" type="button" role="tab">
+                  {tabs[0]}
+                </button>
+                <button className="previewTab" type="button" role="tab">
+                  {tabs[1]}
+                </button>
+                <button className="previewTab" type="button" role="tab">
+                  {tabs[2]}
+                </button>
+              </div>
+            </div>
+
+            {/* Visual mock UI */}
+            <div className="previewMock" aria-hidden="true">
+              <div className="previewMockBar" />
+              <div className="previewMockRow">
+                <div className="previewMockChip" />
+                <div className="previewMockChip" />
+                <div className="previewMockChip" />
+              </div>
+              <div className="previewMockCards">
+                <div className="previewMockCard" />
+                <div className="previewMockCard" />
+              </div>
+            </div>
+
+            <div className="previewTiles grid4">
+              {tiles.map((x) => (
+                <div key={`${id}-${x.t}`} className="previewTile">
+                  <div className="previewTileKicker">{x.k}</div>
+                  <div className="previewTileTitle">{x.t}</div>
+                  <div className="previewTileSub">{x.s}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="previewStageFoot">{footnote}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function TechPage() {
+  const tiles: Tile[] = [
+    {
+      k: "AI",
+      t: "AI + Automation",
+      s: "Practical patterns that reduce friction (not hype demos).",
+    },
+    {
+      k: "Secure",
+      t: "Security + Privacy",
+      s: "Hardening, surveillance reality, and how to protect yourself.",
+    },
+    {
+      k: "Systems",
+      t: "Systems Thinking",
+      s: "How incentives shape products—and why outcomes feel weird.",
+    },
+    {
+      k: "Fix",
+      t: "Real-World Fixes",
+      s: "Networks, smart home, devices, workflows—make it reliable.",
+    },
+  ];
+
   return (
-    <PageShell
-      eyebrow="DAFTITUDE • TECH HUB"
-      headline="Design intelligence for real-world systems."
-      subhead="Tips, guides, and deep dives into technology made simple — plus System Briefs that decode how platforms, incentives, and human behavior actually behave under pressure."
-      primaryCta={{ label: "Explore the Hub →", href: "/tech" }}
-      secondaryCta={{ label: "Request a Topic →", href: "/contact" }}
-      chips={[
-        "AI + Automation",
-        "Security + Privacy",
-        "Systems Thinking",
-        "Real-World Fixes",
-        "Device Truth",
-      ]}
-      stats={stats}
-      gridTitle="Modules"
-      gridCards={gridCards}
-      feedTitle="System Briefs"
-      feedItems={feedItems}
-      ctaBandTitle="Got a topic you want covered?"
-      ctaBandBody="Tell me what you’re curious about and why it matters. I’ll turn it into a clean breakdown or a practical guide."
-      ctaBandPrimary={{ label: "Request a Topic →", href: "/contact" }}
-      ctaBandSecondary={{ label: "Donate →", href: "/donate" }}
-    />
+    <main className="page techPage">
+      {/* HERO */}
+      <section className="homeHero">
+        <div className="homeHeroMark" aria-label="DaFTitude Tech">
+          <Image
+            src="/brand/daftitude-tech.png"
+            alt="DaFTitude Tech"
+            width={220}
+            height={220}
+            priority
+            className="homeHeroMarkImg"
+          />
+        </div>
+
+        <div className="shellEyebrow">DaFTitude • Tech</div>
+
+        <h1 className="homeHeadline">
+          Design intelligence.
+          <br />
+          Built for real systems.
+        </h1>
+
+        <p className="homeSub">
+          Guides, tools, and System Briefs that explain how tech (and people) behave under pressure.
+          Create an account to bookmark topics, request breakdowns, and track what you’ve read.
+        </p>
+
+        <div className="homeHeroLinks">
+          <a
+            href="#preview-tech"
+            className="heroLink heroLinkPrimary"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToId("preview-tech");
+            }}
+          >
+            Preview Tech →
+          </a>
+
+          <Link href="/login" className="heroLink">
+            Sign in →
+          </Link>
+
+          <Link href="/signup" className="heroLink">
+            Get started →
+          </Link>
+        </div>
+
+        <a
+          className="homeScrollHint"
+          href="#preview-tech"
+          aria-label="Scroll to preview"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToId("preview-tech");
+          }}
+        >
+          ↓ scroll ↓
+        </a>
+      </section>
+
+      {/* PREVIEW */}
+      <PreviewSection
+        id="preview-tech"
+        iconSrc="/brand/daftitude-tech.png"
+        eyebrow="TECH HUB"
+        title="Tech that survives the real world."
+        body="This is the Tech Hub preview. Sign in to save modules, request topics, and unlock member-only tools as they ship."
+        primaryHref="/signup"
+        primaryLabel="Create account"
+        secondaryHref="/login"
+        secondaryLabel="Sign in"
+        tabs={["Overview", "Briefs", "Tools"]}
+        tiles={tiles}
+        footnote="Sign in to bookmark modules, request topics, and get updates when new tools drop."
+      />
+    </main>
   );
 }

@@ -1353,75 +1353,84 @@ p {
    Services page spacing + sizing (scoped)
    ============================== */
 .servicesPage .homeHero {
-  padding-top: 56px;
-  padding-bottom: 56px;
+  padding-top: 44px;
+  padding-bottom: 44px;
 }
 
 .servicesPage .homeHeadline {
-  font-size: clamp(2.1rem, 3.4vw, 3.25rem);
+  font-size: clamp(2.0rem, 3.1vw, 3.05rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
 }
 
 .servicesPage .homeSub {
   max-width: 62ch;
-  margin-top: 14px;
-  font-size: 1rem;
+  margin-top: 12px;
+  font-size: 0.98rem;
   opacity: 0.85;
 }
 
 .servicesPage .sectionShell {
-  padding-top: 42px;
-  padding-bottom: 42px;
+  padding-top: 36px;
+  padding-bottom: 36px;
 }
 
 .servicesPage .sectionInner {
-  max-width: 1100px; /* tighten overall width */
+  max-width: 1120px; /* slightly tighter overall width */
 }
 
-/* tighten preview section padding */
+/* tighten preview section padding + remove extra top margin inside split */
 .servicesPage .previewShell {
-  padding-top: 46px;
-  padding-bottom: 46px;
+  padding: 18px;
+}
+
+.servicesPage .servicesSplit .previewSection {
+  margin-top: 0;
 }
 
 .servicesPage .previewTitle {
-  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  font-size: clamp(1.45rem, 2.0vw, 1.95rem);
 }
 
 .servicesPage .previewBody {
-  font-size: 0.98rem;
+  font-size: 0.96rem;
   opacity: 0.85;
 }
 
-/* Pricing table width + behavior */
+/* Pricing table: fit the split column without horizontal scrolling */
 .servicesPage .pricingTableShell {
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  overflow-x: hidden;
 }
 
 .servicesPage .pricingTableHeader,
-.servicesPage .pricingTableBody {
-  min-width: 980px; /* enables controlled horizontal scroll */
+.servicesPage .pricingRow {
+  grid-template-columns: 2fr 0.9fr 0.9fr 1fr;
+  gap: 10px;
+  padding: 12px 12px;
 }
 
 .servicesPage .pricingTypeTitle {
-  font-size: 0.98rem;
+  font-size: 0.96rem;
 }
 
 .servicesPage .pricingInfo,
 .servicesPage .pricingTypeSub {
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   opacity: 0.75;
-  line-height: 1.25;
+  line-height: 1.35;
+}
+
+.servicesPage .pricingMoney {
+  font-size: 0.92rem;
 }
 
 .servicesPage .pricingRow {
-  padding-top: 18px;
-  padding-bottom: 18px;
+  padding-top: 14px;
+  padding-bottom: 14px;
 }
 /* =========================
    Services split layout (preview left, pricing right)
@@ -1452,3 +1461,11 @@ p {
       width: 100%;
     }
   }
+  /* Services: force stacked preview (copy then stage) */
+.servicesPage .previewCols {
+  grid-template-columns: 1fr;
+}
+
+.servicesPage .previewTiles.grid4 {
+  grid-template-columns: 1fr;
+}

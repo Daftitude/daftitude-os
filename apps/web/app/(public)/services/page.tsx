@@ -112,6 +112,7 @@ function scrollToId(id: string) {
   window.history.replaceState(null, "", `#${id}`);
   el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
+
 type PreviewTile = { k: string; t: string; s: string };
 
 function PreviewSection({
@@ -140,21 +141,15 @@ function PreviewSection({
   return (
     <section id={id} className="previewSection">
       <div className="previewShell">
-        <div className="previewCols">
-          {/* LEFT */}
+        {/* NOTE: stacked layout (no left/right columns) */}
+        <div className="previewColsStack">
           <div className="previewCopy">
             <div className="shellEyebrow">{eyebrow}</div>
             <h3 className="previewTitle">{title}</h3>
             <p className="previewBody">{body}</p>
 
             <div className="previewLogoRow" aria-hidden="true">
-              <Image
-                src={iconSrc}
-                alt=""
-                width={160}
-                height={160}
-                className="previewLogo"
-              />
+              <Image src={iconSrc} alt="" width={160} height={160} className="previewLogo" />
             </div>
 
             <div className="previewCtas">
@@ -162,7 +157,6 @@ function PreviewSection({
                 href={primaryHref}
                 className="heroLink heroLinkPrimary"
                 onClick={(e) => {
-                  // support in-page anchors with smooth scroll
                   if (primaryHref.startsWith("#")) {
                     e.preventDefault();
                     scrollToId(primaryHref.replace("#", ""));
@@ -178,7 +172,6 @@ function PreviewSection({
             </div>
           </div>
 
-          {/* RIGHT */}
           <div className="previewStage" aria-label={`${eyebrow} preview`}>
             <div className="previewStageTop">
               <div className="previewStageTitleRow">
@@ -201,7 +194,6 @@ function PreviewSection({
               </div>
             </div>
 
-            {/* Visual mock UI */}
             <div className="previewMock" aria-hidden="true">
               <div className="previewMockBar" />
               <div className="previewMockRow">
@@ -215,7 +207,6 @@ function PreviewSection({
               </div>
             </div>
 
-            {/* Tiles = service grid */}
             <div className="previewTiles stack3">
               {tiles.map((x) => (
                 <div key={`${id}-${x.t}`} className="previewTile">
@@ -248,24 +239,46 @@ function PreviewSection({
           </div>
         </div>
       </div>
-
     </section>
   );
 }
 
 const SERVICES_TILES: PreviewTile[] = [
-  { k: "Build", t: "Website Development", s: "Landing pages to small business sites. Structure, build, deploy, cleanup." },
-  { k: "Optimize", t: "WiFi & Network", s: "Diagnostics, layout analysis, placement, tuning, stability improvements." },
-  { k: "Fix", t: "On-Demand Tech Help", s: "Troubleshooting, cleanup, root-cause fixes, guidance." },
-  { k: "Secure", t: "Smart Home & Security", s: "Cameras, locks, sensors, automations — privacy-aware configuration." },
-  { k: "Work", t: "Office / Workspace", s: "Remote setups, workflows, hardware + reliability improvements." },
-  { k: "Automate", t: "AI Integrations", s: "Workflow AI + automations that reduce friction and wasted time." },
+  {
+    k: "Build",
+    t: "Website Development",
+    s: "Landing pages to small business sites. Structure, build, deploy, cleanup.",
+  },
+  {
+    k: "Optimize",
+    t: "WiFi & Network",
+    s: "Diagnostics, layout analysis, placement, tuning, stability improvements.",
+  },
+  {
+    k: "Fix",
+    t: "On-Demand Tech Help",
+    s: "Troubleshooting, cleanup, root-cause fixes, guidance.",
+  },
+  {
+    k: "Secure",
+    t: "Smart Home & Security",
+    s: "Cameras, locks, sensors, automations — privacy-aware configuration.",
+  },
+  {
+    k: "Work",
+    t: "Office / Workspace",
+    s: "Remote setups, workflows, hardware + reliability improvements.",
+  },
+  {
+    k: "Automate",
+    t: "AI Integrations",
+    s: "Workflow AI + automations that reduce friction and wasted time.",
+  },
 ];
 
 export default function ServicesPage() {
   return (
     <main className="page servicesPage">
-      {/* HERO */}
       <section className="homeHero">
         <div className="homeHeroMark" aria-label="DaFTitude Services">
           <Image
@@ -287,9 +300,8 @@ export default function ServicesPage() {
         </h1>
 
         <p className="homeSub">
-          Practical help for websites, systems, networks, and automation—built to
-          be reliable, maintainable, and easy to live with. No fluff. No mystery
-          pricing.
+          Practical help for websites, systems, networks, and automation—built to be reliable,
+          maintainable, and easy to live with. No fluff. No mystery pricing.
         </p>
 
         <div className="homeHeroLinks">
@@ -326,90 +338,77 @@ export default function ServicesPage() {
         </a>
       </section>
 
-      {/* SERVICES + PRICING SPLIT */}
       <section className="sectionShell" id="services">
-        <div className="sectionInner servicesSplit">
-          {/* LEFT: Services preview */}
-          <div className="servicesLeft">
-            <header className="sectionHeader">
-              <h2 className="sectionTitle">What I actually do</h2>
-              <p className="sectionLead">
-                Focused scopes. Solid delivery. No “mystery tech” that only works on my laptop.
-              </p>
-            </header>
+        <header className="sectionHeader">
+          <h2 className="sectionTitle">What I actually do</h2>
+          <p className="sectionLead">
+            Focused scopes. Solid delivery. No “mystery tech” that only works on my laptop.
+          </p>
+        </header>
 
-            <PreviewSection
-              id="services-preview"
-              iconSrc="/brand/daftitude-services.png"
-              eyebrow="Services"
-              title="Real work. Real outcomes. Built clean."
-              body="This is the practical side of DaFTitude: building, fixing, optimizing, and advising. The tiles reflect the main ways people usually need help—each one can expand into dedicated pages and case studies later."
-              primaryHref="#pricing"
-              primaryLabel="View pricing"
-              secondaryHref="/contact"
-              secondaryLabel="Talk it through"
-              tiles={SERVICES_TILES}
-            />
+        <PreviewSection
+          id="services-preview"
+          iconSrc="/brand/daftitude-services.png"
+          eyebrow="Services"
+          title="Real work. Real outcomes. Built clean."
+          body="This is the practical side of DaFTitude: building, fixing, optimizing, and advising. The tiles reflect the main ways people usually need help—each one can expand into dedicated pages and case studies later."
+          primaryHref="#pricing"
+          primaryLabel="View pricing"
+          secondaryHref="/contact"
+          secondaryLabel="Talk it through"
+          tiles={SERVICES_TILES}
+        />
+
+        <header className="sectionHeader" id="pricing">
+          <h2 className="sectionTitle">What Similar Work Has Cost</h2>
+          <p className="sectionLead muted">
+            ⓘ These numbers reflect past projects and typical scopes. They’re meant to set
+            expectations, not force a fixed price.
+          </p>
+          <p className="sectionLead">Think of this as reference data, not a menu.</p>
+        </header>
+
+        <div className="pricingTableShell" role="region" aria-label="Pricing reference">
+          <div className="pricingTableHeader">
+            <div className="pricingCol pricingType">Type of Work</div>
+            <div className="pricingCol">Typical</div>
+            <div className="pricingCol">Expanded</div>
+            <div className="pricingCol">Custom / Ongoing</div>
           </div>
 
-          {/* RIGHT: Pricing */}
-          <div className="servicesRight" id="pricing">
-            <header className="sectionHeader">
-              <h2 className="sectionTitle">What Similar Work Has Cost</h2>
-              <p className="sectionLead muted">
-                ⓘ These numbers reflect past projects and typical scopes. They’re meant to set expectations, not force a fixed price.
-              </p>
-              <p className="sectionLead">
-                Think of this as reference data, not a menu.
-              </p>
-            </header>
-
-            <div
-              className="pricingTableShell"
-              role="region"
-              aria-label="Pricing reference"
-            >
-              <div className="pricingTableHeader">
-                <div className="pricingCol pricingType">Type of Work</div>
-                <div className="pricingCol">Typical</div>
-                <div className="pricingCol">Expanded</div>
-                <div className="pricingCol">Custom / Ongoing</div>
-              </div>
-
-              <div className="pricingTableBody">
-                {COST_ROWS.map((row) => (
-                  <div className="pricingRow" key={row.type}>
-                    <div className="pricingCol pricingType">
-                      <div className="pricingTypeTop">
-                        <div className="pricingTypeTitle">{row.type}</div>
-                        <div className="pricingInfo muted">ⓘ {row.info}</div>
-                      </div>
-                      <div className="pricingTypeSub muted">
-                        {row.typicalLabel}
-                      </div>
-                    </div>
-
-                    <div className="pricingCol pricingMoney">{row.typical}</div>
-                    <div className="pricingCol pricingMoney">{row.expanded}</div>
-                    <div className="pricingCol pricingMoney">{row.custom}</div>
+          <div className="pricingTableBody">
+            {COST_ROWS.map((row) => (
+              <div className="pricingRow" key={row.type}>
+                <div className="pricingCol pricingType">
+                  <div className="pricingTypeTop">
+                    <div className="pricingTypeTitle">{row.type}</div>
+                    <div className="pricingInfo muted">ⓘ {row.info}</div>
                   </div>
-                ))}
-              </div>
-            </div>
+                  <div className="pricingTypeSub muted">{row.typicalLabel}</div>
+                </div>
 
-            <div className="sectionCtaRow">
-              <p className="muted">
-                The fastest way to get a real answer is to create an account and submit your scope.
-              </p>
-              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <Link className="navBtnGhost" href="/login">Sign in</Link>
-                <Link className="navBtnPrimary" href="/signup">Create account →</Link>
+                <div className="pricingCol pricingMoney">{row.typical}</div>
+                <div className="pricingCol pricingMoney">{row.expanded}</div>
+                <div className="pricingCol pricingMoney">{row.custom}</div>
               </div>
-            </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="sectionCtaRow">
+          <p className="muted">
+            The fastest way to get a real answer is to create an account and submit your scope.
+          </p>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            <Link className="navBtnGhost" href="/login">
+              Sign in
+            </Link>
+            <Link className="navBtnPrimary" href="/signup">
+              Create account →
+            </Link>
           </div>
         </div>
       </section>
-    </main >
+    </main>
   );
-
 }
