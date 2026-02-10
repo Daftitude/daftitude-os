@@ -142,7 +142,7 @@ function PreviewSection({
     <section id={id} className="previewSection">
       <div className="previewShell">
         {/* NOTE: stacked layout (no left/right columns) */}
-        <div className="previewColsStack">
+        <div className="previewCols servicesPreviewCols">
           <div className="previewCopy">
             <div className="shellEyebrow">{eyebrow}</div>
             <h3 className="previewTitle">{title}</h3>
@@ -169,6 +169,26 @@ function PreviewSection({
               <Link href={secondaryHref} className="heroLink">
                 {secondaryLabel} →
               </Link>
+            </div>
+
+            <div className="previewStageFoot" aria-label="Member access">
+              <div className="previewFootRow">
+                <div className="previewFootCopy">
+                  <div className="previewFootTitle">Member access</div>
+                  <div className="previewFootSub">
+                    Sign in to request a quote, save your scope, and track work in one place.
+                  </div>
+                </div>
+
+                <div className="previewFootCtas">
+                  <Link className="navBtnGhost" href="/login">
+                    Sign in
+                  </Link>
+                  <Link className="navBtnPrimary" href="/signup">
+                    Create account
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -216,26 +236,6 @@ function PreviewSection({
                 </div>
               ))}
             </div>
-
-            <div className="previewStageFoot">
-              <div className="previewFootRow">
-                <div className="previewFootCopy">
-                  <div className="previewFootTitle">Member access</div>
-                  <div className="previewFootSub">
-                    Sign in to request a quote, save your scope, and track work in one place.
-                  </div>
-                </div>
-
-                <div className="previewFootCtas">
-                  <Link className="navBtnGhost" href="/login">
-                    Sign in
-                  </Link>
-                  <Link className="navBtnPrimary" href="/signup">
-                    Create account
-                  </Link>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -279,7 +279,7 @@ const SERVICES_TILES: PreviewTile[] = [
 export default function ServicesPage() {
   return (
     <main className="page servicesPage">
-      <section className="homeHero">
+      <section className="homeHero servicesHero">
         <div className="homeHeroMark" aria-label="DaFTitude Services">
           <Image
             src="/brand/daftitude-services.png"
@@ -339,6 +339,7 @@ export default function ServicesPage() {
       </section>
 
       <section className="sectionShell" id="services">
+        <div className="sectionInner">
         <header className="sectionHeader">
           <h2 className="sectionTitle">What I actually do</h2>
           <p className="sectionLead">
@@ -407,6 +408,7 @@ export default function ServicesPage() {
               Create account →
             </Link>
           </div>
+        </div>
         </div>
       </section>
     </main>

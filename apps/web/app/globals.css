@@ -824,7 +824,7 @@ p {
 .previewLogo {
   width: 180px;
   height: auto;
-  margin: 14px 0 6px;
+  margin: 10px 0 2px;
   opacity: 0.9;
   filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.35));
 }
@@ -1006,10 +1006,55 @@ p {
 }
 
 .previewStageFoot {
-  margin-top: 2px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 12px;
   color: var(--muted2);
   letter-spacing: 0.02em;
+}
+
+.previewFootRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.previewFootCopy {
+  min-width: 220px;
+}
+
+.previewFootTitle {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.previewFootSub {
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.previewFootCtas {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+@media (max-width: 600px) {
+  .previewFootRow {
+    align-items: flex-start;
+  }
+  .previewFootCtas {
+    width: 100%;
+  }
+  .previewFootCtas a {
+    width: 100%;
+  }
 }
 
 @media (max-width: 980px) {
@@ -1352,9 +1397,19 @@ p {
 /* ==============================
    Services page spacing + sizing (scoped)
    ============================== */
-.servicesPage .homeHero {
-  padding-top: 44px;
-  padding-bottom: 44px;
+.servicesPage .homeHero.servicesHero {
+  max-width: var(--container);
+  margin: 18px auto 0;
+  padding-top: 34px;
+  padding-bottom: 34px;
+}
+
+@media (max-width: 700px) {
+  .servicesPage .homeHero.servicesHero {
+    margin-top: 12px;
+    padding-top: 26px;
+    padding-bottom: 22px;
+  }
 }
 
 .servicesPage .homeHeadline {
@@ -1371,21 +1426,25 @@ p {
 }
 
 .servicesPage .sectionShell {
-  padding-top: 36px;
-  padding-bottom: 36px;
+  padding-top: 28px;
+  padding-bottom: 28px;
 }
 
 .servicesPage .sectionInner {
-  max-width: 1120px; /* slightly tighter overall width */
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 18px;
 }
 
-/* tighten preview section padding + remove extra top margin inside split */
+/* tighten preview section padding */
+.servicesPage .previewSection {
+  margin-top: 18px;
+}
+
 .servicesPage .previewShell {
-  padding: 18px;
-}
-
-.servicesPage .servicesSplit .previewSection {
-  margin-top: 0;
+  padding: 14px;
+  max-width: 980px;
+  margin: 0 auto;
 }
 
 .servicesPage .previewTitle {
@@ -1397,20 +1456,124 @@ p {
   opacity: 0.85;
 }
 
-/* Pricing table: fit the split column without horizontal scrolling */
+/* Services: center the preview copy + tighten the card’s internal rhythm */
+.servicesPage .previewCopy {
+  max-width: 62ch;
+  margin: 0;
+  text-align: left;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* tighten spacing between blocks in the left column */
+.servicesPage .previewCopy > .previewCtas {
+  margin-top: 12px;
+}
+
+.servicesPage .previewCopy > .previewStageFoot {
+  margin-top: 10px;
+}
+
+
+/* Services: 2-column preview (copy left, stage right) */
+.servicesPage .servicesPreviewCols {
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: start;
+}
+
+/* Tighten the overall 2-col rhythm for Services */
+.servicesPage .previewCols {
+  gap: 14px;
+  align-items: start;
+}
+
+.servicesPage .previewLogoRow {
+  margin-top: 10px;
+}
+
+.servicesPage .previewCtas {
+  margin-top: 12px;
+}
+
+@media (max-width: 980px) {
+  .servicesPage .servicesPreviewCols {
+    grid-template-columns: 1fr;
+  }
+  .servicesPage .previewCopy {
+    max-width: 68ch;
+  }
+}
+
+/* PreviewColsStack and previewStage tweaks for services */
+.previewColsStack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* Keep the mock/stage from feeling full-bleed on large screens */
+.servicesPage .previewStage {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 12px;
+  gap: 10px;
+
+  /* Keep the stage from feeling endlessly tall on desktop */
+  max-height: 560px;
+  overflow: auto;
+}
+
+/* Subtle, consistent scrollbars (WebKit) */
+.servicesPage .previewStage::-webkit-scrollbar {
+  width: 10px;
+}
+.servicesPage .previewStage::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.10);
+  border: 2px solid rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+}
+
+.servicesPage .previewMockCard {
+  height: 44px;
+}
+
+.servicesPage .previewTile {
+  padding: 10px;
+}
+
+/* Slightly denser list in the stage so it reads shorter */
+.servicesPage .previewTiles {
+  gap: 8px;
+}
+
+.servicesPage .previewTileTitle {
+  font-size: 14px;
+}
+
+.servicesPage .previewTileSub {
+  font-size: 12.5px;
+}
+
+/* Pricing table: constrain to the same centered rhythm as the page */
 .servicesPage .pricingTableShell {
   width: 100%;
-  max-width: none;
-  margin-left: 0;
-  margin-right: 0;
-  overflow-x: hidden;
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 980px) {
+  .servicesPage .pricingTableShell {
+    overflow-x: auto;
+  }
 }
 
 .servicesPage .pricingTableHeader,
 .servicesPage .pricingRow {
-  grid-template-columns: 2fr 0.9fr 0.9fr 1fr;
-  gap: 10px;
-  padding: 12px 12px;
+  gap: 12px;
+  padding: 12px 14px;
 }
 
 .servicesPage .pricingTypeTitle {
@@ -1427,45 +1590,32 @@ p {
 .servicesPage .pricingMoney {
   font-size: 0.92rem;
 }
-
-.servicesPage .pricingRow {
-  padding-top: 14px;
-  padding-bottom: 14px;
-}
-/* =========================
-   Services split layout (preview left, pricing right)
-   ========================= */
-   .servicesSplit {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 22px;
-    align-items: start;
+@media (max-width: 980px) {
+  .servicesPage .previewStage {
+    max-height: none;
+    overflow: visible;
   }
-  
-  .servicesLeft,
-  .servicesRight {
-    min-width: 0;
-  }
-  
-  .servicesRight {
-    justify-self: end;
-    width: min(780px, 100%);
-  }
-  
-  @media (max-width: 980px) {
-    .servicesSplit {
-      grid-template-columns: 1fr;
-    }
-    .servicesRight {
-      justify-self: stretch;
-      width: 100%;
-    }
-  }
-  /* Services: force stacked preview (copy then stage) */
-.servicesPage .previewCols {
-  grid-template-columns: 1fr;
 }
 
-.servicesPage .previewTiles.grid4 {
-  grid-template-columns: 1fr;
+/* Slightly tighter vertical rhythm in the left column */
+.servicesPage .previewTitle {
+  margin-top: 10px;
+}
+
+.servicesPage .previewBody {
+  margin-top: 10px;
+}
+
+.servicesPage .previewLogo {
+  width: 160px;
+  margin: 8px 0 0;
+}
+
+.servicesPage .previewCtas {
+  margin-top: 12px;
+}
+
+.servicesPage .previewStageFoot {
+  margin-top: 10px;
+  padding-top: 10px;
 }

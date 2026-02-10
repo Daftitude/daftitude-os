@@ -203,6 +203,95 @@ export default function FitnessPage() {
         secondaryLabel="Sign in"
         tiles={tiles}
       />
+
+      {/* SOFT ONBOARDING */}
+      <section className="sectionShell" id="onboarding">
+        <div className="sectionInner">
+          <div className="sectionHeader">
+            <h2 className="sectionTitle">Soft onboarding</h2>
+            <p className="sectionLead">
+              Start simple. Track a few signals. Let the system build momentum for you.
+            </p>
+          </div>
+
+          {/* Simple metrics (static placeholders for now) */}
+          <div className="cardMetrics" aria-label="Sample metrics">
+            <div className="cardMetric">
+              <div className="cardMetricValue">12</div>
+              <div className="cardMetricLabel">Workouts</div>
+              <div className="cardMetricSub">Last 30 days</div>
+            </div>
+            <div className="cardMetric">
+              <div className="cardMetricValue">6</div>
+              <div className="cardMetricLabel">Day streak</div>
+              <div className="cardMetricSub">Consistency</div>
+            </div>
+            <div className="cardMetric">
+              <div className="cardMetricValue">78%</div>
+              <div className="cardMetricLabel">Completion</div>
+              <div className="cardMetricSub">Planned vs done</div>
+            </div>
+          </div>
+
+          <div className="menuGrid" style={{ marginTop: 18 }} aria-label="Onboarding steps">
+            <div
+              className="menuCard"
+              style={{ gridColumn: "span 4", ['--cardLogo' as any]: "url(/brand/daftitude-fitness.png)" }}
+            >
+              <div className="menuCardTop">
+                <div className="menuCardTitleRow">
+                  <span className="pill">Step 1</span>
+                  <div className="menuCardTitle">Choose a baseline</div>
+                </div>
+              </div>
+              <div className="menuCardSub">
+                Pick 3 days/week and a 20–30 minute cap. The goal is repeatability, not heroics.
+              </div>
+              <div className="cardActions">
+                <Link className="cardBtn cardBtnPrimary" href="/signup">
+                  Create account
+                </Link>
+                <Link className="cardBtn cardBtnGhost" href="/login">
+                  Sign in
+                </Link>
+              </div>
+            </div>
+
+            <div
+              className="menuCard"
+              style={{ gridColumn: "span 4", ['--cardLogo' as any]: "url(/brand/daftitude-fitness.png)" }}
+            >
+              <div className="menuCardTop">
+                <div className="menuCardTitleRow">
+                  <span className="pill">Step 2</span>
+                  <div className="menuCardTitle">Track the minimum</div>
+                </div>
+              </div>
+              <div className="menuCardSub">
+                Log: session done, minutes, and one note. That’s enough to build streaks + trends.
+              </div>
+              <div className="menuCardHint">No spreadsheets. No guilt.</div>
+            </div>
+
+            <div
+              className="menuCard"
+              style={{ gridColumn: "span 4", ['--cardLogo' as any]: "url(/brand/daftitude-fitness.png)" }}
+            >
+              <div className="menuCardTop">
+                <div className="menuCardTitleRow">
+                  <span className="pill">Step 3</span>
+                  <div className="menuCardTitle">Earn momentum</div>
+                </div>
+              </div>
+              <div className="menuCardSub">
+                Hit 7 days of consistency and we’ll unlock the next layer: progressions, streak rewards,
+                and a personal dashboard.
+              </div>
+              <div className="menuCardHint">Built for long games.</div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
