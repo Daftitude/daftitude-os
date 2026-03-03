@@ -1,19 +1,17 @@
-import { SignIn } from "@clerk/nextjs";
+import { SignUp } from "@clerk/nextjs";
 
-export const metadata = { title: "Sign in | DaFTitude" };
+export const metadata = { title: "Get started | DaFTitude" };
 
-export default function LoginPage() {
+export default function SignupPage() {
   return (
     <main className="authPage">
       <section className="authCard">
         <header className="authHeader">
-          <h1 className="authTitle">Sign in</h1>
-          <p className="authSubtitle">
-            Welcome back. Continue with your preferred method.
-          </p>
+          <h1 className="authTitle">Get started</h1>
+          <p className="authSubtitle">Create your DaFTitude account.</p>
         </header>
 
-        <SignIn
+        <SignUp
           appearance={{
             elements: {
               card: "clerkCard",
@@ -26,7 +24,6 @@ export default function LoginPage() {
 
               footerActionLink: "clerkLink",
               formResendCodeLink: "clerkLink",
-              identityPreviewEditButton: "clerkLink",
 
               socialButtonsBlockButton: "clerkSocialBtn",
             },

@@ -1068,6 +1068,100 @@ p {
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================
+   Contact — Book Now form inside Preview stage
+   (keeps existing public template look)
+   ========================= */
+.previewNotice {
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.previewNotice.isSuccess {
+  background: rgba(80, 255, 170, 0.10);
+  border-color: rgba(80, 255, 170, 0.22);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.previewNotice.isError {
+  background: rgba(255, 90, 90, 0.10);
+  border-color: rgba(255, 90, 90, 0.22);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.previewFormWrap {
+  padding: 12px;
+}
+
+.previewForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.previewField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.previewLabel {
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.previewInput,
+.previewTextarea {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--text);
+  padding: 10px 12px;
+  outline: none;
+}
+
+.previewTextarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.previewInput::placeholder,
+.previewTextarea::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.previewInput:focus,
+.previewTextarea:focus {
+  border-color: rgba(80, 200, 255, 0.30);
+  box-shadow: 0 0 0 3px rgba(80, 200, 255, 0.10);
+}
+
+.previewFormActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.previewHint {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.previewInlineLink {
+  color: rgba(255, 255, 255, 0.90);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 /* =========================
    CTA Band
    ========================= */
@@ -1618,4 +1712,54 @@ p {
 .servicesPage .previewStageFoot {
   margin-top: 10px;
   padding-top: 10px;
+}
+
+/* =========================
+   Contact Page — tighten spacing (keeps public template consistent)
+   ========================= */
+.contactPage .homeHero {
+  padding: 24px 22px 16px; /* slightly tighter than default */
+}
+
+.contactPage .previewSection {
+  margin-top: 34px; /* was 54px; prevents oversized gap under hero */
+}
+
+.contactPage .previewShell {
+  padding: 18px; /* was 22px; reduces overall preview height */
+}
+
+.contactPage .previewCopy {
+  padding: 6px 4px; /* was 8px 6px */
+}
+
+.contactPage .previewLogo {
+  width: 160px; /* was 180px */
+  margin: 8px 0 0;
+}
+
+.contactPage .previewStage {
+  padding: 12px; /* was 14px */
+  gap: 10px;     /* was 12px */
+}
+
+.contactPage .previewMock {
+  padding: 10px; /* was 12px */
+}
+
+.contactPage .previewMockChip {
+  height: 20px; /* was 22px */
+  width: 58px;  /* was 64px */
+}
+
+.contactPage .previewMockCard {
+  height: 48px; /* was 56px */
+}
+
+.contactPage .sectionShell {
+  padding: 36px 0; /* was 42px; keeps tiles section from feeling too tall */
+}
+
+.contactAfterTiles {
+  margin-top: 16px;
 }
